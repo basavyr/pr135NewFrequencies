@@ -65,12 +65,17 @@ void testSubtract(T &dataExp)
     arrayPrinter(test);
 }
 
-int main()
+void app()
 {
     auto dataExp = std::make_unique<ExpData_ENSDF>();
     auto minparams = std::make_unique<MinimalParameters>();
+    auto rms = std::make_unique<RootMeanSquare>();
     MinimalParameters::minSetOfParams bestParams;
     minparams->searchMinimum(dataExp->energiesExp, bestParams);
     minparams->paramPrinter(bestParams);
-    // testSubtract(dataExp);
+}
+
+int main()
+{
+    app();
 }

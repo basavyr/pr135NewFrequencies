@@ -3,6 +3,27 @@
 #include "../include/experimentalData.hh"
 #include "../include/energyFormulae.hh"
 
+MinimalParameters::MinimalParameters()
+{
+    startTime = std::chrono::high_resolution_clock::now();
+}
+
+MinimalParameters::~MinimalParameters()
+{
+    measureTime();
+}
+
+void MinimalParameters::measureTime()
+{
+    auto now = std::chrono::high_resolution_clock::now();
+    auto endPoint = std::chrono::time_point_cast<std::chrono::microseconds>(now).time_since_epoch().count();
+    auto startPoint = std::chrono::time_point_cast<std::chrono::microseconds>(startTime).time_since_epoch().count();
+    auto durationms = static_cast<double>((endPoint - startPoint) * 0.001);
+    std::cout << "The program finished succesfully \n";
+    std::cout << "Process took " << durationms << " ms..."
+              << "\n";
+}
+
 void MinimalParameters::searchMinimum(std::vector<double> &exp, minSetOfParams &bestParams)
 {
     //setting the limits for the free parameters
