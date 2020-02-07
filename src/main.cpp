@@ -71,6 +71,9 @@ void app()
     auto minparams = std::make_unique<MinimalParameters>();
     auto rms = std::make_unique<RootMeanSquare>();
     MinimalParameters::minSetOfParams bestParams;
+    auto xx = RootMeanSquare::generateTheoreticalData(46, 16, 1,35);
+    auto x = RootMeanSquare::RMS_calculation(dataExp->energiesExp, xx);
+    std::cout << x << "\n";
     minparams->searchMinimum(dataExp->energiesExp, bestParams);
     minparams->paramPrinter(bestParams);
 }

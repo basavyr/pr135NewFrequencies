@@ -54,7 +54,9 @@ void MinimalParameters::searchMinimum(std::vector<double> &exp, minSetOfParams &
                         param_stack.at(index).A1 = static_cast<double>(1.0 / (2.0 * I1));
                         param_stack.at(index).A2 = static_cast<double>(1.0 / (2.0 * I2));
                         param_stack.at(index).A3 = static_cast<double>(1.0 / (2.0 * I3));
+                        param_stack.at(index).theta = theta;
                         param_stack.at(index).RMS = currentChi;
+                        index++;
                     }
                 }
             }

@@ -44,10 +44,10 @@ public:
     {
         const double I_left = 1.0;
         const double I_right = 130.0;
-        const double I_step = 10;
+        const double I_step = 5;
         const double theta_left = -180;
         const double theta_right = 180;
-        const double theta_step = 10;
+        const double theta_step = 5;
     };
 
     static void searchMinimum(std::vector<double> &exp, minSetOfParams &bestParams);

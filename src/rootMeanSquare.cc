@@ -2,7 +2,6 @@
 #include "../include/experimentalData.hh"
 #include "../include/energyFormulae.hh"
 
-
 double RootMeanSquare::RMS_calculation(std::vector<double> &exp, std::vector<double> &th)
 {
     //FAIL IF EMPTY CONTAINERS AND FIF UNEQUAL
@@ -31,11 +30,17 @@ std::vector<double> RootMeanSquare::generateTheoreticalData(double I1, double I2
 {
     std::vector<double> energyContainer;
     std::vector<double> nullContainer = {};
+    auto yrast = [&](auto spin) {
+        return static_cast<double>(EnergyFormulas::energyExpression(0, spin, I1, I2, I3, theta));
+    };
+    auto wobbling = [&](auto spin) {
+        return static_cast<double>(EnergyFormulas::energyExpression(0, spin, I1, I2, I3, theta));
+    };
     int count = 0;
     for (int i = 0; i < ExpData_ENSDF::spin1.size(); ++i)
     {
         //replace with energy formula
-        auto currentValue = 1;
+        auto currentValue = yrast(ExpData_ENSDF::spin1.at(i));
         if (currentValue != 6969)
         {
             energyContainer.emplace_back(currentValue);
@@ -45,7 +50,7 @@ std::vector<double> RootMeanSquare::generateTheoreticalData(double I1, double I2
     for (int i = 0; i < ExpData_ENSDF::spin2.size(); ++i)
     {
         //replace with energy formula
-        auto currentValue = 1;
+        auto currentValue = wobbling(ExpData_ENSDF::spin2.at(i));
         if (currentValue != 6969)
         {
             energyContainer.emplace_back(currentValue);
