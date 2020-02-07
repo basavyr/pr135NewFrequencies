@@ -68,6 +68,9 @@ void testSubtract(T &dataExp)
 int main()
 {
     auto dataExp = std::make_unique<ExpData_ENSDF>();
-    testSubtract(dataExp);
-    // std::cout<<ExpData_ENSDF::spin1.at(1);
+    auto minparams = std::make_unique<MinimalParameters>();
+    MinimalParameters::minSetOfParams bestParams;
+    minparams->searchMinimum(dataExp->energiesExp, bestParams);
+    minparams->paramPrinter(bestParams);
+    // testSubtract(dataExp);
 }
