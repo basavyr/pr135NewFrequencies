@@ -2,6 +2,7 @@
 #include "../include/experimentalData.hh"
 #include "../include/energyFormulae.hh"
 
+
 double RootMeanSquare::RMS_calculation(std::vector<double> &exp, std::vector<double> &th)
 {
     //FAIL IF EMPTY CONTAINERS AND FIF UNEQUAL
