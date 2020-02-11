@@ -109,7 +109,7 @@ void app()
     auto minparams = std::make_unique<MinimalParameters>();
     auto rms = std::make_unique<RootMeanSquare>();
     MinimalParameters::minSetOfParams bestParams;
-    minparams->searchMinimum(dataExp->energiesExp, bestParams);
+    minparams->searchMinimum_NULL_Theta(dataExp->energiesExp, bestParams);
     auto xx = RootMeanSquare::generateTheoreticalData(bestParams.I1, bestParams.I2, bestParams.I3, bestParams.theta);
     std::cout << "***********************************"
               << "\n";

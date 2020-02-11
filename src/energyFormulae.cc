@@ -68,7 +68,7 @@ double EnergyFormulas::energyExpression(int N, double spin, double i1, double i2
 {
     //dont compute energy if the wobbling frequency and the minimum hamiltonian are invalid numbers
     auto omega = [&](auto spinFake) {
-        return omegaPrime_New(spinFake, i1, i2, i3, theta);
+        return omega_New(spinFake, i1, i2, i3, theta);
     };
     auto minHamiltonian = minimumHamiltonian(spin, i1, i2, i3, theta);
     auto e0 = 0.5 * omega(5.5) + minimumHamiltonian(5.5, i1, i2, i3, theta);
