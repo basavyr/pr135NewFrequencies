@@ -54,10 +54,10 @@ double EnergyFormulas::minimumHamiltonian(double spin, double i1, double i2, dou
     double j1 = EnergyFormulas::j_Component(1, theta);
     double j2 = EnergyFormulas::j_Component(2, theta);
     auto squaredSum = [](auto x, auto y) {
-        return x * pow(y, 2);
+        return static_cast<double>(x * pow(y, 2));
     };
     auto singleParticleSum = squaredSum(a1, j1) + squaredSum(a2, j2);
-    auto term1 = a1 * spin * spin + (2.0 + spin + 1.0) * a1 * j1 - spin * a2 * j2;
+    auto term1 = a1 * spin * spin + (2.0 * spin + 1.0) * a1 * j1 - spin * a2 * j2;
     auto result = static_cast<double>(term1 + singleParticleSum);
     if (isnan(result))
         return 6969;
@@ -74,6 +74,6 @@ double EnergyFormulas::energyExpression(int N, double spin, double i1, double i2
     auto e0 = 0.5 * omega(5.5) + minimumHamiltonian(5.5, i1, i2, i3, theta);
     if (omega(spin) == 6969 || minHamiltonian == 6969 || isnan(e0))
         return 6969;
-    auto result = static_cast<double>(minHamiltonian + (N + 0.5) * omega(spin)) - e0;
+    auto result = static_cast<double>(minHamiltonian + (N + 0.5) * omega(spin) - e0);
     return result;
 }

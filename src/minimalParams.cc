@@ -75,6 +75,10 @@ void MinimalParameters::searchMinimum(std::vector<double> &exp, minSetOfParams &
 
 void MinimalParameters::paramPrinter(minSetOfParams &params)
 {
+    std::string paramFile = "../output/params.dat";
+    std::ofstream out(paramFile);
     std::cout << "I1= " << params.I1 << " I2= " << params.I2 << " I3= " << params.I3 << " theta= " << params.theta << "\n";
     std::cout << "E_RMS=" << params.RMS << "\n";
+    out << "I1= " << params.I1 << " I2= " << params.I2 << " I3= " << params.I3 << " theta= " << params.theta << "\n";
+    out << "E_RMS=" << params.RMS << "\n";
 }

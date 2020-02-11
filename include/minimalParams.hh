@@ -9,6 +9,7 @@
 #include <cmath>
 #include <chrono>
 #include <ctime>
+#include <fstream>
 
 class MinimalParameters
 {
@@ -44,14 +45,14 @@ public:
     {
         const double I_left = 1.0;
         const double I_right = 130.0;
-        const double I_step = 5;
+        const double I_step = 1;
         const double theta_left = -180;
         const double theta_right = 180;
-        const double theta_step = 5;
+        const double theta_step = 0.1;
     };
 
     static void searchMinimum(std::vector<double> &exp, minSetOfParams &bestParams);
-    void paramPrinter(minSetOfParams &params);
+    static void paramPrinter(minSetOfParams &params);
 };
 
 #endif // MINIMALPARAMS_HH

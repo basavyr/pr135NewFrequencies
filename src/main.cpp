@@ -1,5 +1,6 @@
 #include <iostream>
-
+#include <vector>
+#include <fstream>
 #include "../include/minimalParams.hh"
 #include "../include/energyFormulae.hh"
 #include "../include/rootMeanSquare.hh"
@@ -20,6 +21,26 @@ void arrayPrinter(std::vector<double> &vec)
             else
             {
                 std::cout << vec.at(i) << " , ";
+            }
+        }
+    }
+}
+
+void arrayPrinterToFile(std::string &file, std::vector<double> &array)
+{
+    if (array.size())
+    {
+        std::ofstream out(file);
+        out << "{ ";
+        for (int i = 0; i < array.size(); ++i)
+        {
+            if (i == array.size() - 1)
+            {
+                out << array.at(i) << " };\n";
+            }
+            else
+            {
+                out << array.at(i) << " , ";
             }
         }
     }
@@ -65,17 +86,67 @@ void testSubtract(T &dataExp)
     arrayPrinter(test);
 }
 
+void PlotMaker(std::vector<double> &x, std::vector<double> &ydata1, std::vector<double> &ydata2)
+{
+    std::cout << x.at(0);
+    std::cout << ydata1.at(0);
+    std::cout << ydata2.at(0);
+    // std::string file = "../output/plot.dat";
+    // {
+    //     std::ofstream out(file);
+    //     out << "hey";
+    // }
+}
+
 void app()
 {
+    //plot files
+    std::string plotBand1 = "../output/yrast.dat";
+    std::string plotBand2 = "../output/wobbling.dat";
+    std::vector<double> yrastBand;
+    std::vector<double> wobblingBand;
     auto dataExp = std::make_unique<ExpData_ENSDF>();
     auto minparams = std::make_unique<MinimalParameters>();
     auto rms = std::make_unique<RootMeanSquare>();
     MinimalParameters::minSetOfParams bestParams;
-    auto xx = RootMeanSquare::generateTheoreticalData(46, 16, 1,35);
-    auto x = RootMeanSquare::RMS_calculation(dataExp->energiesExp, xx);
-    std::cout << x << "\n";
     minparams->searchMinimum(dataExp->energiesExp, bestParams);
-    minparams->paramPrinter(bestParams);
+    auto xx = RootMeanSquare::generateTheoreticalData(bestParams.I1, bestParams.I2, bestParams.I3, bestParams.theta);
+    std::cout << "***********************************"
+              << "\n";
+    MinimalParameters::paramPrinter(bestParams);
+    std::cout << "***********************************"
+              << "\n";
+    std::cout << "EXP"
+              << "\n";
+    arrayPrinter(dataExp->energiesExp);
+    std::cout << "TH"
+              << "\n";
+    arrayPrinter(xx);
+    //generated the subsets of data to be plotted
+    RootMeanSquare::generateSubsets(xx, yrastBand, wobblingBand);
+    BandAdjuster::PlotMaker(plotBand1, dataExp->spin1, dataExp->yrastExp, yrastBand);
+    BandAdjuster::PlotMaker(plotBand2, dataExp->spin2, dataExp->wobbExp, wobblingBand);
+
+    //gcalculate the deviations from experimental data
+    // auto deltas = RootMeanSquare::deltaArray(dataExp->energiesExp, xx);
+    // std::cout << RootMeanSquare::RMS_fromAdjustQuantas(1, 1);
+    // std::cout << RootMeanSquare::rms_fromFitParameters(0.00341388, 0.0733665, 3.25347, 30.2246);
+    // arrayPrinter(deltas);
+
+    //generate the new adjusted experimental data
+    /* auto adjustedEnergy = dataExp->energiesExp;
+    BandAdjuster::subtractQuantaFromContainer(adjustedEnergy, 0, deltas.at(0));
+    BandAdjuster::subtractQuantaFromContainer(adjustedEnergy, 1, deltas.at(0));
+    BandAdjuster::subtractQuantaFromContainer(adjustedEnergy, 2, deltas.at(0));
+    BandAdjuster::subtractQuantaFromContainer(adjustedEnergy, adjustedEnergy.size() - 1, deltas.at(deltas.size() - 1));
+    arrayPrinter(adjustedEnergy);
+    MinimalParameters::minSetOfParams bestParams_Adjusted;
+
+    //recalculate RMS with the new adjusted set
+    minparams->searchMinimum(adjustedEnergy, bestParams_Adjusted);
+    minparams->paramPrinter(bestParams_Adjusted);
+    auto xxx = RootMeanSquare::generateTheoreticalData(101, 6, 121, -30);
+    std::cout << RootMeanSquare::RMS_calculation(dataExp->energiesExp, xxx) << "\n"; */
 }
 
 int main()

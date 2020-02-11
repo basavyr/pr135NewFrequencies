@@ -107,6 +107,15 @@ public:
     }
 
     static void generateDataSet(std::vector<double> &set1, std::vector<double> &set2, std::vector<double> &destination);
+    template <typename T>
+    static void printArray(std::vector<T> &array)
+    {
+        for (auto &&n : array)
+        {
+            std::cout << n << " ";
+        }
+        std::cout << "\n";
+    }
 };
 
 #endif // EXPERIMENTALDATA_HH
