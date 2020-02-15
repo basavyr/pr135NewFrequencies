@@ -1,2 +1,2 @@
-clang++ -std=c++17 energyFormulae.cc rootMeanSquare.cc bandAdjustment.cc experimentalData.cc minimalParams.cc main.cpp
+clang++ -std=c++17 energyFormulae.cc rootMeanSquare.cc bandAdjustment.cc experimentalData.cc minimalParams.cc energyTest.cc main.cpp
 ./a.out

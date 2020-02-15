@@ -6,6 +6,7 @@
 #include "../include/rootMeanSquare.hh"
 #include "../include/experimentalData.hh"
 #include "../include/bandAdjustment.hh"
+#include "../include/energyTest.hh"
 
 void arrayPrinter(std::vector<double> &vec)
 {
@@ -149,7 +150,13 @@ void app()
     std::cout << RootMeanSquare::RMS_calculation(dataExp->energiesExp, xxx) << "\n"; */
 }
 
+void energyTest()
+{
+    auto test = std::make_unique<EnergyTest>(1, 2, 3, 4, 1);
+}
+
 int main()
 {
-    app();
+    // app();
+    energyTest();
 }
