@@ -152,7 +152,14 @@ void app()
 
 void energyTest()
 {
-    auto test = std::make_unique<EnergyTest>(1, 2, 3, 4, 1);
+    double I1 = 129.0;
+    double I2 = 3;
+    double I3 = 52;
+    double theta = -160;
+    //use 1 for ENSDF data
+    //use 2 for MATTA et al data
+    int choice = 2;
+    auto test = std::make_unique<EnergyTest>(I1, I2, I3, theta, choice);
 }
 
 int main()

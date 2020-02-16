@@ -38,8 +38,7 @@ EnergyTest::EnergyTest(double i1, double i2, double i3, double theta, int choice
     {
         unitfySets(band1_MATTA, band2_MATTA, experimentalData);
     }
-    std::cout << spins.size() << "\n";
-    printTable<double>(spins, experimentalData, theoreticalData, setOfParams);
+    printTable<double>(spins, experimentalData, theoreticalData, setOfParams, choice);
 }
 
 EnergyTest::~EnergyTest()
@@ -59,7 +58,7 @@ std::vector<double> EnergyTest::generateTheoreticalData()
     }
     for (int i = 0; i < spin2.size(); ++i)
     {
-        results.emplace_back(EnergyFormulas::energyExpression(0, spin1.at(i), setOfParams.I1, setOfParams.I2, setOfParams.I3, setOfParams.theta));
+        results.emplace_back(EnergyFormulas::energyExpression(0, spin2.at(i), setOfParams.I1, setOfParams.I2, setOfParams.I3, setOfParams.theta));
     }
     return results;
 }
