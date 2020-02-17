@@ -62,3 +62,31 @@ std::vector<double> EnergyTest::generateTheoreticalData()
     }
     return results;
 }
+
+double EnergyTest::RMS_Calculation(std::vector<double> &v1, std::vector<double> &v2)
+{
+    //stop if sizes are different
+    if (v1.size() != v2.size())
+    {
+        return 6969;
+    }
+    int count = 0;
+    double sum = 0.0;
+    for (int i = 0; i < v1.size(); ++i)
+    {
+        auto currentValue = pow(v1.at(i) - v2.at(i), 2);
+        if (!isnan(currentValue))
+        {
+            sum += currentValue;
+            count++;
+        }
+        else
+        {
+            i = v1.size() + 1;
+        }
+    }
+    auto result = static_cast<double>(sqrt(sum / v1.size()));
+    if (result && count == v1.size())
+        return result;
+    return 6969;
+}

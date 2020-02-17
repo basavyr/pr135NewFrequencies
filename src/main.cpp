@@ -150,7 +150,7 @@ void app()
     std::cout << RootMeanSquare::RMS_calculation(dataExp->energiesExp, xxx) << "\n"; */
 }
 
-void energyTest()
+void energyTest(int choice)
 {
     double I1 = 129.0;
     double I2 = 3;
@@ -158,12 +158,13 @@ void energyTest()
     double theta = -160;
     //use 1 for ENSDF data
     //use 2 for MATTA et al data
-    int choice = 2;
+    // int choice = 1;
     auto test = std::make_unique<EnergyTest>(I1, I2, I3, theta, choice);
 }
 
 int main()
 {
     // app();
-    energyTest();
+    energyTest(1);
+    energyTest(2);
 }

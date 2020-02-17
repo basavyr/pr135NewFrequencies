@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 class EnergyTest
 {
@@ -36,35 +37,54 @@ public:
     template <typename T>
     static void printTable(std::vector<T> &spins, std::vector<T> &energyExp, std::vector<T> &energyTh, paramSet &params, int choice)
     {
+        const std::string file = "../output/energies.out";
+        std::ofstream out(file);
         //only work for equal arrayss
         if (spins.size() != energyExp.size() || energyExp.size() != energyTh.size())
         {
             return;
         }
         if (choice == 1)
+        {
             std::cout << "Comaprison between experiment and theory with ENSDF data"
                       << "\n";
+            out << "Comaprison between experiment and theory with ENSDF data"
+                << "\n";
+        }
         else
         {
             std::cout << "Comaprison between experiment and theory with MATTA el al data"
                       << "\n";
+            out << "Comaprison between experiment and theory with MATTA el al data"
+                << "\n";
         }
 
         std::cout << "Results for the set of parameters: "
                   << "\n";
-        std::cout << "A1= " << params.I1 << " A2= " << params.I2 << " A3= " << params.I3 << " theta= " << params.theta
-                  << "\n";
+        out << "Results for the set of parameters: "
+            << "\n";
+        std::cout << "A1= " << params.I1 << " A2= " << params.I2 << " A3= " << params.I3 << " theta= " << params.theta << "\n";
+        out << "A1= " << params.I1 << " A2= " << params.I2 << " A3= " << params.I3 << " theta= " << params.theta << "\n";
         std::cout << "Spin [hbar]   "
                   << "E_exp [MeV]   "
                   << "E_th [MeV]"
                   << "\n";
+        out << "Spin [hbar]   "
+            << "E_exp [MeV]   "
+            << "E_th [MeV]"
+            << "\n";
         for (int i = 0; i < spins.size(); ++i)
         {
             std::cout << spins.at(i) << " " << energyExp.at(i) << " " << energyTh.at(i) << "\n";
+            out << spins.at(i) << " " << energyExp.at(i) << " " << energyTh.at(i) << "\n";
         }
+        auto rms = RMS_Calculation(energyExp, energyTh);
+        std::cout << "The RMS is: " << rms << "\n";
+        out << "The RMS is: " << rms << "\n";
     }
     static void unitfySets(std::vector<double> &set1, std::vector<double> &set2, std::vector<double> &destination);
     std::vector<double> generateTheoreticalData();
+    static double RMS_Calculation(std::vector<double> &v1, std::vector<double> &v2);
 };
 
 #endif // ENERGYTEST_HH
